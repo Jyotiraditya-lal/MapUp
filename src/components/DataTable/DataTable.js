@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
 function DataTable({ data }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
   const location = (item) => {
     localStorage.clear();
     localStorage.setItem("location", item.VehicleLocation);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
   };
 
   return (
@@ -20,7 +40,7 @@ function DataTable({ data }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {currentItems.map((item, index) => (
             <tr
               key={index}
               onClick={() => location(item)}
@@ -35,6 +55,26 @@ function DataTable({ data }) {
           ))}
         </tbody>
       </table>
+      
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className="bg-gray-200 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className="bg-gray-200 text-gray-700 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
