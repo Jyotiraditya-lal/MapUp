@@ -36,7 +36,7 @@ function MapPlaceholder() {
       <div className="h-80">
         <MapContainer
           center={position}
-          zoom={94}
+          zoom={13}
           style={{ height: "90%", width: "90%" }}
         >
           <TileLayer

@@ -2,10 +2,8 @@ import React from "react";
 
 function DataTable({ data }) {
   const location = (item) => {
-    // Store location data in localStorage
     localStorage.clear();
     localStorage.setItem("location", item.VehicleLocation);
-    // Optional: Trigger a page update (e.g., via state or a custom event) if needed
   };
 
   return (
@@ -18,6 +16,7 @@ function DataTable({ data }) {
             <th className="px-4 py-2">Model</th>
             <th className="px-4 py-2">Year</th>
             <th className="px-4 py-2">Range</th>
+            <th className="px-4 py-2">CAFVEligibility</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +30,7 @@ function DataTable({ data }) {
               <td className="border px-4 py-2">{item.Model}</td>
               <td className="border px-4 py-2">{item.ModelYear}</td>
               <td className="border px-4 py-2">{item.ElectricRange}</td>
+              <td className="border px-4 py-2 text-center">{item.CAFVEligibility}</td>
             </tr>
           ))}
         </tbody>
