@@ -12,6 +12,7 @@ L.Icon.Default.mergeOptions({
 
 function MapPlaceholder() {
   const [position, setPosition] = useState([37.7749, -122.4194]);
+  const dependencyVar = localStorage.getItem("location")
 
   function pointToLatLong(point) {
     const [longitude, latitude] = point
@@ -26,7 +27,7 @@ function MapPlaceholder() {
     if (point) {
       setPosition(pointToLatLong(point));
     }
-  }, [localStorage.getItem("location")]); 
+  }, [dependencyVar]); 
 
   return (
     <div className="p-4 bg-white">
